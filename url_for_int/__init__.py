@@ -9,9 +9,10 @@
 # 1.0.0 Beta 2022/1 UFI横空出世，推出核心功能
 # 1.1.0 Beta 2022/1 增加UI界面
 # 2.0.1 Beta 2022/8/5 重修代码，增加注释，逻辑业务分离
-
 from url_for_int.interpreter import int_main, file_catcher
 from url_for_int.int_gui import GUI
+
+name = "url_for_int"
 
 
 def start_gui():
