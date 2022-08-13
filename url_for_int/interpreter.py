@@ -18,17 +18,16 @@ def int_main(origin_text: str) -> str:
     return x
 
 
-def file_catcher(file_name, prefix, *paths):
-    # 解析路径（获取路径origin 及 生成路径to）
-    origin_path = paths[0]
-    if paths[1]:
-        to_path = paths[1]
-    else:
+def file_catcher(origin_file, to_path=None, prefix=""):
+    file_name, origin_path, pre_folder = decompose(origin_file)
+    if not to_path:
         to_path = origin_path
-    del paths
-
+    else:
+        to_path = os.path.join(to_path, "/_inter/", pre_folder)
+    to_file = os.path.join(to_path, prefix + file_name)
     # 获取文件
-    with open(os.path.join(origin_path, file_name), mode="r", encoding="utf-8") as f:
+
+    with open(origin_file, mode="r", encoding="utf-8") as f:
         origin_text = f.read()
 
     if not os.path.exists(to_path):
@@ -37,6 +36,19 @@ def file_catcher(file_name, prefix, *paths):
 
     x = int_main(origin_text)
 
-    with open(os.path.join(to_path, prefix + file_name), mode="w", encoding="utf-8") as f:
+    with open(to_file, mode="w", encoding="utf-8") as f:
         f.write(x)
         return True
+
+
+def decompose(content: str):
+    """ 将文件路径拆解 """
+    file, path = "", ""
+    content = content.split("\\")
+    file = content[-1]
+    pre_folder = content[-2]
+    del content[-1]
+    content[0] += "\\"
+    for i in content:
+        path = os.path.join(path, i)
+    return file, path, pre_folder

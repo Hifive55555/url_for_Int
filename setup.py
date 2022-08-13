@@ -5,7 +5,7 @@ with open("D:\\MyProject\\url_for_Int\\README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="url_for_int",
-    version="2.1.0",
+    version="2.2.1",
     author="Hifive",
     author_email="2019912635@qq.com",
     description="帮助flask框架中将普通HTML文档转义为url-for的文档",
