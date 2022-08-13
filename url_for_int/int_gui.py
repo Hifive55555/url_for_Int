@@ -13,6 +13,7 @@ class GUI(tk.Tk):
         self.files, self.folders = None, None
         self.paths = []
         self.title("Html url_for Interpreter")
+        self.resizable(False, False)  # 防止用户调整尺寸
         # self.geometry("600x300")
 
         tk.Button(self, text='打开文件', width=20, command=self.select_file).grid(row=1, column=0, padx=5, pady=5)
@@ -25,7 +26,7 @@ class GUI(tk.Tk):
         delete_button.grid(row=1, column=2, padx=5, pady=5)
 
         tk.Label(self, text="\t\t前缀").grid(row=3, column=0, pady=10)
-        self.entry_text = tk.StringVar(self, value="inter_")
+        self.entry_text = tk.StringVar(self, value="int_")
         tk.Entry(self, textvariable=self.entry_text).grid(row=3, column=1, pady=10)
 
         self.check_path = tk.IntVar(self, value=1)
@@ -72,28 +73,12 @@ class GUI(tk.Tk):
     def trans(self):
         state = None
 
-        def decompose(content: str):
-            """ p_file为加上前一个文件目录的str """
-            file, path = "", ""
-            content = content.split("\\")
-            file = content[-1]
-            p_file = content[-2]
-            del content[-1]
-            content[0] += "\\"
-            for i in content:
-                path = os.path.join(path, i)
-            return file, path, p_file
-
         if self.check_path.get() == 1:
             for ori in self.paths:
-                file_name, origin_path, _ = decompose(ori)
-                state = file_catcher(file_name, self.entry_text.get(), origin_path, origin_path)
+                state = file_catcher(origin_file=ori, prefix=self.entry_text.get())
         else:
             save_path = filedialog.askdirectory(title="选择保存的文件夹")
-            print(save_path)
             for ori in self.paths:
-                file_name, origin_path, p_file = decompose(ori)
-                to_path = os.path.join(save_path, "/_inter/", p_file)
-                state = file_catcher(file_name, self.entry_text.get(), origin_path, to_path)
+                state = file_catcher(ori, save_path, self.entry_text.get())
         if state:
             tk.Message(self, text="转义成功").grid()

@@ -1,9 +1,6 @@
 # -*- coding:utf-8 -*-
-
 # URL_FOR INTERPRETER 是用于将标准html文件转义为路径为url_for的html文件, 方便flask开发者快速添加url_for重定向
 # 开发者: Hifive; GitHub: Hifive55555
-# Version: 2.0.1 Beta 注释版
-# 此版本包括由Tk编写的UI程序、cmd程序、以及API接口 (Python库)
 
 # 更新日志
 # 1.0.0 Beta 2022/1 UFI横空出世，推出核心功能
