@@ -18,12 +18,12 @@ def int_main(origin_text: str) -> str:
     return x
 
 
-def file_catcher(origin_file, to_path=None, prefix=""):
+def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
     file_name, origin_path, pre_folder = decompose(origin_file)
     if not to_path:
         to_path = origin_path
-    else:
-        to_path = os.path.join(to_path, "/_inter/", pre_folder)
+    if if_pre:
+        to_path = os.path.join(to_path, pre_folder)
     to_file = os.path.join(to_path, prefix + file_name)
     # 获取文件
 
@@ -38,6 +38,7 @@ def file_catcher(origin_file, to_path=None, prefix=""):
 
     with open(to_file, mode="w", encoding="utf-8") as f:
         f.write(x)
+        print(f"{origin_file}  转义至  {to_file} 成功\n")
         return True
 
 
