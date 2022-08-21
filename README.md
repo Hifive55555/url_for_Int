@@ -1,4 +1,4 @@
-# url_for_Int *v2.2.3*
+# url_for_Int *v2.2.4*
 
 ### 简介
 - 这是 url-for Interpreter 的开源使用版，遵循 MIT 协议。<br>
@@ -7,8 +7,7 @@
 Pypi: https://pypi.org/project/url-for-int
 - 它总共分为两个部分：GUI 和 API，使用方法见下
 ### 新版内容
-2.2.3 增加日志框显示转义日志，覆盖原文件会弹出提示框
-2.2.2 修复了增加文件、文件夹、删除文件的listbox的bug。<br>
+2.2.4 修复ui数组bug，增加逆转函数omit_int
 
 ---
 
@@ -24,6 +23,7 @@ Pypi: https://pypi.org/project/url-for-int
   - prefix默认为"int_"
   - if_pre默认为False。若为True，则文件目录加上pre_folder
   - 返回：bool值，表示是否成功
+- #### omit_int ：删除所有url_for
 - #### GUI ：用户界面
   - GUI是一个继承了tk.Tk的窗口类
 

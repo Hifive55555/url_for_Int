@@ -81,14 +81,15 @@ class GUI(tk.Tk):
             self.listbox.insert(tk.END, i)
 
     def trans(self):
-        state = None
+        state, success_file = None, []
+        prefix = self.entry_text.get()
         self.text.config(state="normal")
         self.text.insert("end", "\n>> 执行转义\n")
 
         def write_text():
             if state:
                 self.text.insert("end", f"{ori}  转义成功\n")
-                del self.paths[self.paths.index(ori)]
+                success_file.append(self.paths.index(ori))
                 self.listbox.delete(0)
             else:
                 self.text.insert("end", f"！ {ori}转义失败\n")
@@ -99,12 +100,15 @@ class GUI(tk.Tk):
                 if not check:
                     return False
             for ori in self.paths:
-                state = file_catcher(ori, prefix=self.entry_text.get())
+                state = file_catcher(ori, prefix=prefix)
                 write_text()
         else:
             save_path = filedialog.askdirectory(title="选择保存的文件夹")
             for ori in self.paths:
-                state = file_catcher(ori, save_path, self.entry_text.get(), if_pre=True)
+                state = file_catcher(ori, save_path, prefix, if_pre=True)
                 write_text()
 
+        success_file.reverse()
+        for i in success_file:
+            del self.paths[i]
         self.text.config(state="disabled")

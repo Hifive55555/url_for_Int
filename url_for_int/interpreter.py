@@ -13,9 +13,19 @@ def int_main(origin_text: str) -> str:
         addition = r"{{ url_for('static', filename='" + address + r"') }}"
         return addition
 
-    # 替换目录字符
-    x = re.sub(r"/?(\w[\u4E00-\u9FA5\w_-]+/)+([\u4E00-\u9FA5\w_-]+\.)+\w+\b", add, origin_text)
+    y = omit_int(origin_text)
+    x = re.sub(r"/?(\w[\u4E00-\u9FA5\w_-]+/)+([\u4E00-\u9FA5\w_-]+\.)+\w+\b", add, y)
+
     return x
+
+
+def omit_int(origin_text):
+    def omit(match) -> str:
+            address = match.group(2)
+            return address
+
+    y = re.sub(r"({{ *url_for)(.*)(?=}})", omit, origin_text)
+    return y
 
 
 def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
@@ -26,6 +36,7 @@ def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
         to_path = os.path.join(to_path, pre_folder)
     to_file = os.path.join(to_path, prefix + file_name)
     # 获取文件
+
 
     with open(origin_file, mode="r", encoding="utf-8") as f:
         origin_text = f.read()
@@ -40,7 +51,7 @@ def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
         f.write(x)
         print(f"{origin_file}  转义至  {to_file} 成功\n")
         return True
-
+    return False
 
 def decompose(content: str):
     """ 将文件路径拆解 """
