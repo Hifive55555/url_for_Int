@@ -21,14 +21,15 @@ def int_main(origin_text: str) -> str:
 
 def omit_int(origin_text):
     def omit(match) -> str:
-            address = match.group(2)
-            return address
+        address = match.group(2)
+        return address
 
-    y = re.sub(r"({{ *url_for)(.*)(?=}})", omit, origin_text)
+    y = re.sub(r"({{ *url_for *\( *[\'\"]static[\'\"] *, *filename *= *[\'\"] *)(.*)([\'\"] *\) *}})", omit, origin_text)
+    print(y)
     return y
 
 
-def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
+def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False, if_omit=False):
     file_name, origin_path, pre_folder = decompose(origin_file)
     if not to_path:
         to_path = origin_path
@@ -37,7 +38,6 @@ def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
     to_file = os.path.join(to_path, prefix + file_name)
     # 获取文件
 
-
     with open(origin_file, mode="r", encoding="utf-8") as f:
         origin_text = f.read()
 
@@ -45,13 +45,17 @@ def file_catcher(origin_file, to_path=None, prefix="int_", if_pre=False):
         os.makedirs(to_path)
         print("创建新的文件夹")
 
-    x = int_main(origin_text)
+    if not if_omit:
+        x = int_main(origin_text)
+    else:
+        x = omit_int(origin_text)
 
     with open(to_file, mode="w", encoding="utf-8") as f:
         f.write(x)
         print(f"{origin_file}  转义至  {to_file} 成功\n")
         return True
     return False
+
 
 def decompose(content: str):
     """ 将文件路径拆解 """

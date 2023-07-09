@@ -1,11 +1,11 @@
 import setuptools
 
-with open("D:\\Projects\\url_for_Int\\README.md", "r", encoding='utf-8') as fh:
+with open("F:\\Code\\url_for_Int\\README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="url_for_int",
-    version="2.2.4",
+    version="2.3.0",
     author="Hifive",
     author_email="2019912635@qq.com",
     description="帮助flask框架中将普通HTML文档转义为url-for的文档",

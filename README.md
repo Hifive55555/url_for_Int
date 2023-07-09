@@ -1,4 +1,4 @@
-# url_for_Int *v2.2.4*
+# url_for_Int *v2.3.0*
 
 ### 简介
 - 这是 url-for Interpreter 的开源使用版，遵循 MIT 协议。<br>
@@ -7,7 +7,8 @@
 Pypi: https://pypi.org/project/url-for-int
 - 它总共分为两个部分：GUI 和 API，使用方法见下
 ### 新版内容
-2.2.4 修复ui数组bug，增加逆转函数omit_int
+- 2.2.4 修复 ui 数组 bug，增加逆转函数 omit_int  
+- 2.3.0 修复 omit_int 函数 bug，完善逆转义功能并添加到GUI上
 
 ---
 
@@ -37,8 +38,11 @@ Pypi: https://pypi.org/project/url-for-int
   - 转录并覆盖原文件：`file_catcher("test.html", prefix="")`
   - 转录并指定前缀：`file_catcher("test.html", prefix="xxx-")`
   - 转录并增加pre_folder：`file_catcher("test.html", "D:/test", if_pre=True)`
-- 转义一串字符
+- 逆转录一个文件
+  - 同上理，不过要加入参数 `if_omit=True`
+- 转义/逆转录一串字符
   ```python
   content = "xxx"
-  after = int_main(content)
+  after_1 = int_main(content) # 转义
+  after_2 = omit_int(content) # 逆转义
   ```
